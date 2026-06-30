@@ -1,0 +1,472 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  background: #f6f5f4;
+}
+
+.smis-dash-root {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Inter', sans-serif;
+  background: #f6f5f4;
+}
+
+/* ───────────────────────────────────────────
+   App bar
+   ─────────────────────────────────────────── */
+.smis-appbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  height: 64px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  background: linear-gradient(135deg, #6b0012 0%, #4a000d 55%, #2a0007 100%);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.18);
+}
+
+.smis-appbar-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.smis-appbar-logo {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1.5px solid rgba(255, 70, 90, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 0 10px 2px rgba(255, 40, 60, 0.35);
+}
+.smis-appbar-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.smis-appbar-titles {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.2;
+}
+.smis-appbar-school {
+  font-family: 'Playfair Display', serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.smis-appbar-portal {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 190, 195, 0.8);
+}
+
+/* Hamburger button */
+.smis-hamburger {
+  width: 40px;
+  height: 40px;
+  border-radius: 9px;
+  border: none;
+  background: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.18s;
+  position: relative;
+}
+.smis-hamburger:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.smis-hamburger-bar {
+  position: absolute;
+  width: 20px;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform 0.28s ease, opacity 0.2s ease, top 0.28s ease;
+}
+.smis-hamburger-bar:nth-child(1) { top: 13px; }
+.smis-hamburger-bar:nth-child(2) { top: 19px; }
+.smis-hamburger-bar:nth-child(3) { top: 25px; }
+
+.smis-hamburger.open .smis-hamburger-bar:nth-child(1) {
+  top: 19px;
+  transform: rotate(45deg);
+}
+.smis-hamburger.open .smis-hamburger-bar:nth-child(2) {
+  opacity: 0;
+}
+.smis-hamburger.open .smis-hamburger-bar:nth-child(3) {
+  top: 19px;
+  transform: rotate(-45deg);
+}
+
+/* ───────────────────────────────────────────
+   Slide-out nav drawer (mobile-first)
+   ─────────────────────────────────────────── */
+.smis-drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 2, 4, 0.45);
+  z-index: 40;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+.smis-drawer-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.smis-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 78%;
+  max-width: 300px;
+  background: #fdfdfd;
+  z-index: 45;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0;
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -8px 0 30px rgba(0, 0, 0, 0.2);
+}
+.smis-drawer.open {
+  transform: translateX(0);
+}
+
+.smis-drawer-header {
+  padding: 0 24px 20px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 12px;
+}
+.smis-drawer-user {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a0004;
+}
+.smis-drawer-role {
+  font-size: 11.5px;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+.smis-drawer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 0 12px;
+}
+
+.smis-drawer-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 14px;
+  border-radius: 9px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #444;
+  transition: background 0.15s, color 0.15s;
+}
+.smis-drawer-link svg {
+  width: 19px;
+  height: 19px;
+  flex-shrink: 0;
+  color: #999;
+  transition: color 0.15s;
+}
+.smis-drawer-link:hover {
+  background: rgba(107, 0, 18, 0.06);
+  color: #6b0012;
+}
+.smis-drawer-link:hover svg {
+  color: #6b0012;
+}
+.smis-drawer-link.active {
+  background: rgba(107, 0, 18, 0.08);
+  color: #6b0012;
+  font-weight: 600;
+}
+.smis-drawer-link.active svg {
+  color: #6b0012;
+}
+
+.smis-drawer-footer {
+  margin-top: auto;
+  padding: 16px 24px 0;
+  border-top: 1px solid #eee;
+}
+.smis-drawer-logout {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 9px;
+  border: 1.5px solid #f0c4c9;
+  background: #fff6f7;
+  color: #a30020;
+  font-family: 'Inter', sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.smis-drawer-logout:hover {
+  background: #ffeaec;
+}
+.smis-drawer-logout svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* ───────────────────────────────────────────
+   Main content
+   ─────────────────────────────────────────── */
+.smis-dash-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 18px 48px;
+}
+
+.smis-welcome {
+  margin-bottom: 24px;
+}
+.smis-welcome-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #a30020;
+  margin-bottom: 6px;
+}
+.smis-welcome h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a0004;
+  letter-spacing: -0.3px;
+}
+.smis-welcome p {
+  font-size: 13.5px;
+  color: #888;
+  margin-top: 4px;
+}
+
+/* Menu grid */
+.smis-menu-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.smis-menu-card {
+  background: #fff;
+  border: 1px solid #ececec;
+  border-radius: 14px;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+  position: relative;
+  overflow: hidden;
+}
+.smis-menu-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(107, 0, 18, 0.12);
+  border-color: rgba(107, 0, 18, 0.18);
+}
+.smis-menu-card:active {
+  transform: translateY(-1px);
+}
+
+.smis-menu-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #6b0012 0%, #a0001c 100%);
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(107, 0, 18, 0.25);
+}
+.smis-menu-icon svg {
+  width: 23px;
+  height: 23px;
+  color: #fff;
+}
+
+.smis-menu-label {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a0004;
+}
+.smis-menu-desc {
+  font-size: 12px;
+  color: #999;
+  line-height: 1.5;
+  margin-top: -6px;
+}
+
+.smis-menu-badge {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #a30020;
+  background: #fff1f3;
+  border: 1px solid #ffc0c8;
+  padding: 3px 8px;
+  border-radius: 20px;
+}
+
+/* ───────────────────────────────────────────
+   Tablet / Desktop enhancements
+   ─────────────────────────────────────────── */
+@media (min-width: 640px) {
+  .smis-menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .smis-dash-main {
+    padding: 32px 28px 56px;
+  }
+}
+
+@media (min-width: 860px) {
+  body {
+    background: #ececec;
+  }
+
+  .smis-appbar {
+    height: 72px;
+    padding: 0 32px;
+  }
+  .smis-appbar-logo {
+    width: 46px;
+    height: 46px;
+  }
+  .smis-appbar-school {
+    font-size: 15.5px;
+  }
+  .smis-appbar-portal {
+    font-size: 11px;
+  }
+
+  /* Drawer becomes a permanent right-aligned dropdown panel on desktop instead of full overlay */
+  .smis-drawer {
+    top: 72px;
+    bottom: auto;
+    width: 280px;
+    max-width: 280px;
+    border-radius: 14px;
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
+    right: 24px;
+    max-height: calc(100vh - 100px);
+  }
+  .smis-drawer-overlay {
+    background: transparent;
+  }
+
+  .smis-dash-main {
+    max-width: 1100px;
+    margin: 24px auto 48px;
+    background: #fdfdfd;
+    border-radius: 16px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.08);
+    padding: 40px 44px 52px;
+  }
+
+  .smis-welcome h1 {
+    font-size: 28px;
+  }
+
+  .smis-menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .smis-menu-card {
+    padding: 26px 22px;
+  }
+  .smis-menu-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+  }
+  .smis-menu-icon svg {
+    width: 26px;
+    height: 26px;
+  }
+  .smis-menu-label {
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 1180px) {
+  .smis-menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Small phones: tighten grid to single column if very narrow */
+@media (max-width: 380px) {
+  .smis-menu-grid {
+    grid-template-columns: 1fr;
+  }
+  .smis-appbar-school {
+    font-size: 12px;
+  }
+}
